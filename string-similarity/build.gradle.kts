@@ -1,0 +1,63 @@
+import org.jetbrains.kotlin.konan.target.HostManager
+
+plugins {
+    kotlin("multiplatform")
+    id("com.vanniktech.maven.publish")
+    id("binary-compatibility-validator")
+    id("com.diffplug.spotless")
+}
+
+kotlin {
+    explicitApi()
+    jvm()
+    js {
+        compilations.all {
+            kotlinOptions {
+                moduleKind = "umd"
+                sourceMap = true
+                metaInfo = true
+                main = "noCall"
+                sourceMapEmbedSources = "always"
+            }
+        }
+        nodejs()
+        browser()
+    }
+
+    if (HostManager.hostIsMac) {
+        macosX64()
+        macosArm64()
+        ios()
+        tvos()
+        watchos()
+    }
+
+    if (HostManager.hostIsMingw || HostManager.hostIsMac) {
+        mingwX64 {
+            binaries.findTest(DEBUG)?.linkerOpts = mutableListOf("-Wl,--subsystem,windows")
+        }
+    }
+
+    if (HostManager.hostIsLinux || HostManager.hostIsMac) {
+        linuxX64()
+    }
+
+    sourceSets {
+        val commonTest by getting {
+            dependencies {
+                implementation(libs.kotlin.test.common)
+                implementation(libs.kotlin.test.annotations.common)
+            }
+        }
+        val jvmTest by getting {
+            dependencies {
+                implementation(libs.kotlin.test.junit)
+            }
+        }
+        val jsTest by getting {
+            dependencies {
+                implementation(libs.kotlin.test.js)
+            }
+        }
+    }
+}
