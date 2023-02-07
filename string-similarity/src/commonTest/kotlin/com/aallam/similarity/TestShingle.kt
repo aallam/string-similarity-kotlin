@@ -7,7 +7,7 @@ import kotlin.test.assertEquals
 class TestShingle {
 
     @Test
-    fun test() {
+    fun stringProfile() {
         val profile = Shingle.profile("JOHN  JOHANN", 3)
         val expected = mapOf(
             ("JOH" to 2),

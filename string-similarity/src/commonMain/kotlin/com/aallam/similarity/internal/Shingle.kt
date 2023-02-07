@@ -27,7 +27,7 @@ internal interface Shingle {
      * @param k length of k-shingles
      * @return the profile of the provided string
      */
-    fun profile(string: String, k: Int = 3): Map<String, Int> {
+    fun profile(string: String, k: Int = 3): Profile {
         require(k > 0) { "k should be positive" }
         val filtered = spaces.replace(string, " ")
         return filtered.windowed(size = k).groupingBy { it }.eachCount()
@@ -41,3 +41,8 @@ internal interface Shingle {
         private val spaces = Regex("\\s+")
     }
 }
+
+/**
+ * The number of occurrences of k-shingles.
+ */
+internal typealias Profile = Map<String, Int>
