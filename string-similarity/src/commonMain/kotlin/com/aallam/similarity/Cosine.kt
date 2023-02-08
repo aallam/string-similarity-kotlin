@@ -12,24 +12,26 @@ import kotlin.math.sqrt
  *
  * The cosine distance is computed as `1 - cosine similarity`.
  *
+ * [Cosine Similarity](https://en.wikipedia.org/wiki/Cosine_similarity)
+ *
  * @param k length of k-shingles
  */
-public class Cosine(private val k: Int = 3) : Shingle, Similarity, Distance {
+public class Cosine(private val k: Int = 3) {
 
     /**
      * Compute the cosine similarity between strings.
      *
-     * It is computed as `V1.V2/(|V1|*|V2|)` where `V1` and `V2` are vector representation of [s1] and [s2].
+     * It is computed as `V1.V2/(|V1|*|V2|)` where `V1` and `V2` are vector representation of [lhs] and [rhl].
      *
-     * @param s1 the first string to compare.
-     * @param s2 the second string to compare.
+     * @param lhs left hand side string
+     * @param rhl right hand side string
      * @return the cosine similarity in the range `[0, 1]`.
      */
-    override fun similarity(s1: String, s2: String): Double {
-        if (s1 == s2) return 1.0
-        if (s1.length < k || s2.length < k) return 0.0
-        val p1 = profile(s1, k)
-        val p2 = profile(s2, k)
+    public fun similarity(lhs: CharSequence, rhl: CharSequence): Double {
+        if (lhs == rhl) return 1.0
+        if (lhs.length < k || rhl.length < k) return 0.0
+        val p1 = Shingle.profile(lhs, k)
+        val p2 = Shingle.profile(rhl, k)
         return (p1 dot p2) / (norm(p1) * norm(p2))
     }
 
@@ -45,7 +47,14 @@ public class Cosine(private val k: Int = 3) : Shingle, Similarity, Distance {
         return sqrt(sum)
     }
 
-    override fun distance(s1: String, s2: String): Double {
-        return 1.0 - similarity(s1, s2)
+    /**
+     * Compute the cosine distance between two string.
+     * Corresponds to 1.0 - similarity.
+     *
+     * @param lhs left hand side string
+     * @param rhl right hand side string
+     */
+    public fun distance(lhs: CharSequence, rhl: CharSequence): Double {
+        return 1.0 - similarity(lhs, rhl)
     }
 }

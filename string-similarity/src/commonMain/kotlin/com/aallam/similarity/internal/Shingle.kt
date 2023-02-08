@@ -27,7 +27,7 @@ internal interface Shingle {
      * @param k length of k-shingles
      * @return the profile of the provided string
      */
-    fun profile(string: String, k: Int = 3): Profile {
+    fun profile(string: CharSequence, k: Int = 3): Profile {
         require(k > 0) { "k should be positive" }
         val filtered = spaces.replace(string, " ")
         return filtered.windowed(size = k).groupingBy { it }.eachCount()
