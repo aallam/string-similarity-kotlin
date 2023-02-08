@@ -9,6 +9,9 @@ class TestLevenshtein {
     fun distance() {
         val levenshtein = Levenshtein()
         assertEquals(1, levenshtein.distance("My string", "My tring"))
+        assertEquals(0, levenshtein.distance("My string", "My string"))
+        assertEquals(2, levenshtein.distance("", "My"))
+        assertEquals(2, levenshtein.distance("My", ""))
         assertEquals(2, levenshtein.distance("My string", "M string2"))
         assertEquals(1, levenshtein.distance("My string", "My \$tring"))
         assertEquals(2, levenshtein.distance("My string", "M string2", 4))

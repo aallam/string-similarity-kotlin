@@ -24,6 +24,10 @@ public class Levenshtein {
      * @return the computed Levenshtein distance.
      */
     public fun distance(lhs: CharSequence, rhs: CharSequence, limit: Int = Int.MAX_VALUE): Int {
+        if (lhs == rhs) return 0
+        if (lhs.isEmpty()) return rhs.length
+        if (rhs.isEmpty()) return lhs.length
+
         // initial costs is the edit distance from an empty string, which corresponds to the characters to delete.
         // the array size is : length + 1 (empty string)
         var cost = IntArray(lhs.length + 1) { it }
