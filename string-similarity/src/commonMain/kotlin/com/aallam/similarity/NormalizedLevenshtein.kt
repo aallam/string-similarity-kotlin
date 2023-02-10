@@ -8,7 +8,7 @@ import kotlin.math.max
  *
  * [Levenshtein Distance](https://en.wikipedia.org/wiki/Levenshtein_distance)
  */
-public class LevenshteinNormalized {
+public class NormalizedLevenshtein {
 
     /**
      * Levenshtein distance metric implementation.
@@ -21,14 +21,14 @@ public class LevenshteinNormalized {
      *
      *  Compute distance as Levenshtein(s1, s2) / max(|s1|, |s2|).
      *
-     * @param lhs left hand side string to compare.
-     * @param rhs right hand side string to compare.
+     * @param first left hand side string to compare.
+     * @param second right hand side string to compare.
      * @return the computed normalized Levenshtein distance.
      */
-    public fun distance(lhs: CharSequence, rhs: CharSequence): Double {
-        val maxLength = max(lhs.length, rhs.length)
+    public fun distance(first: CharSequence, second: CharSequence): Double {
+        val maxLength = max(first.length, second.length)
         if (maxLength == 0) return 0.0
-        return levenshtein.distance(lhs, rhs) / maxLength.toDouble()
+        return levenshtein.distance(first, second) / maxLength.toDouble()
     }
 
     /**

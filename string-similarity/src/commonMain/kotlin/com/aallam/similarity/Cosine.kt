@@ -21,17 +21,17 @@ public class Cosine(private val k: Int = 3) {
     /**
      * Compute the cosine similarity between strings.
      *
-     * It is computed as `V1.V2/(|V1|*|V2|)` where `V1` and `V2` are vector representation of [lhs] and [rhl].
+     * It is computed as `V1.V2/(|V1|*|V2|)` where `V1` and `V2` are vector representation of [first] and [second].
      *
-     * @param lhs left hand side string
-     * @param rhl right hand side string
+     * @param first first string to compare.
+     * @param second second string to compare.
      * @return the cosine similarity in the range `[0, 1]`.
      */
-    public fun similarity(lhs: CharSequence, rhl: CharSequence): Double {
-        if (lhs == rhl) return 1.0
-        if (lhs.length < k || rhl.length < k) return 0.0
-        val p1 = Shingle.profile(lhs, k)
-        val p2 = Shingle.profile(rhl, k)
+    public fun similarity(first: CharSequence, second: CharSequence): Double {
+        if (first == second) return 1.0
+        if (first.length < k || second.length < k) return 0.0
+        val p1 = Shingle.profile(first, k)
+        val p2 = Shingle.profile(second, k)
         return (p1 dot p2) / (norm(p1) * norm(p2))
     }
 
@@ -51,10 +51,10 @@ public class Cosine(private val k: Int = 3) {
      * Compute the cosine distance between two string.
      * Corresponds to 1.0 - similarity.
      *
-     * @param lhs left hand side string
-     * @param rhl right hand side string
+     * @param first first string to compare.
+     * @param second second string to compare.
      */
-    public fun distance(lhs: CharSequence, rhl: CharSequence): Double {
-        return 1.0 - similarity(lhs, rhl)
+    public fun distance(first: CharSequence, second: CharSequence): Double {
+        return 1.0 - similarity(first, second)
     }
 }

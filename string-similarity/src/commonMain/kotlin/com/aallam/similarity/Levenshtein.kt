@@ -18,22 +18,22 @@ public class Levenshtein {
      * It is at most the length of the longer string.
      * It is `0` if and only if the strings are equal.
      *
-     * @param lhs left hand side string to compare.
-     * @param rhs right hand side string to compare.
+     * @param first first string to compare.
+     * @param second second string to compare.
      * @param limit the maximum result to compute before stopping, terminating calculation early.
      * @return the computed Levenshtein distance.
      */
-    public fun distance(lhs: CharSequence, rhs: CharSequence, limit: Int = Int.MAX_VALUE): Int {
-        if (lhs == rhs) return 0
-        if (lhs.isEmpty()) return rhs.length
-        if (rhs.isEmpty()) return lhs.length
+    public fun distance(first: CharSequence, second: CharSequence, limit: Int = Int.MAX_VALUE): Int {
+        if (first == second) return 0
+        if (first.isEmpty()) return second.length
+        if (second.isEmpty()) return first.length
 
-        // initial costs is the edit distance from an empty string, which corresponds to the characters to delete.
+        // initial costs is the edit distance from an empty string, which corresponds to the characters to inserts.
         // the array size is : length + 1 (empty string)
-        var cost = IntArray(lhs.length + 1) { it }
-        var newCost = IntArray(lhs.length + 1)
+        var cost = IntArray(first.length + 1) { it }
+        var newCost = IntArray(first.length + 1)
 
-        for (i in 1..rhs.length) {
+        for (i in 1..second.length) {
 
             // calculate new costs from the previous row.
             // the first element of the new row is the edit distance (deletes) to match empty string
@@ -42,9 +42,9 @@ public class Levenshtein {
             var minCost = i
 
             // fill in the rest of the row
-            for (j in 1..lhs.length) {
+            for (j in 1..first.length) {
                 // if it's the same char at the same position, no edit cost.
-                val edit = if (lhs[j - 1] == rhs[i - 1]) 0 else 1
+                val edit = if (first[j - 1] == second[i - 1]) 0 else 1
                 val replace = cost[j - 1] + edit
                 val insert = cost[j] + 1
                 val delete = newCost[j - 1] + 1

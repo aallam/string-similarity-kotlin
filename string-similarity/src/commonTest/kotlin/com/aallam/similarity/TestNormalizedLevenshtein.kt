@@ -3,11 +3,11 @@ package com.aallam.similarity
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class TestLevenshteinNormalized {
+class TestNormalizedLevenshtein {
 
     @Test
     fun normalized() {
-        val levenshtein = LevenshteinNormalized()
+        val levenshtein = NormalizedLevenshtein()
         assertEquals(0.11, levenshtein.distance("My string", "My tring"), 0.01)
         assertEquals(0.22, levenshtein.distance("My string", "M string2"), 0.01)
         assertEquals(0.11, levenshtein.distance("My string", "My \$tring"), 0.01)
@@ -18,7 +18,7 @@ class TestLevenshteinNormalized {
 
     @Test
     fun similarity() {
-        val levenshtein = LevenshteinNormalized()
+        val levenshtein = NormalizedLevenshtein()
         assertEquals(0.89, levenshtein.similarity("My string", "My tring"), 0.01)
         assertEquals(0.78, levenshtein.similarity("My string", "M string2"), 0.01)
         assertEquals(0.89, levenshtein.similarity("My string", "My \$tring"), 0.01)
