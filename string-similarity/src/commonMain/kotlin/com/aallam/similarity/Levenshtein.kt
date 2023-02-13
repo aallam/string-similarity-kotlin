@@ -6,6 +6,8 @@ import kotlin.math.min
  * The Levenshtein distance between two words is the minimum number of single-character edits (insertions, deletions or
  * substitutions) required to change one string into the other.
  *
+ * This implementation uses dynamic programming (Wagner–Fischer algorithm).
+ *
  * [Levenshtein Distance](https://en.wikipedia.org/wiki/Levenshtein_distance)
  */
 public class Levenshtein {
