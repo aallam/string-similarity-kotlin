@@ -20,16 +20,18 @@ public class DamerauLevenshtein {
      */
     public fun distance(first: CharSequence, second: CharSequence): Int {
 
-        // Infinite distance is the max possible distance
-        val infinity = first.length + second.length
+        // infinite distance is the max possible distance
+        val n = first.length
+        val m = second.length
+        val infinity = n + m
 
-        // Create and initialize the character array indices
+        // create and initialize the character array indices
         val charsRowIndex = mutableMapOf<Char, Int>()
         for (index in first.indices) charsRowIndex[first[index]] = 0
         for (char in second) charsRowIndex[char] = 0
 
-        // Create the distance matrix H[0 .. first.length+1][0 .. second.length+1]
-        val distanceMatrix = Array(first.length + 2) { IntArray(second.length + 2) }
+        // create the distance matrix H[0 .. first.length+1][0 .. second.length+1]
+        val distanceMatrix = Array(n + 2) { IntArray(m + 2) }
 
         // initialize the left edge
         for (i in first.indices) {
@@ -44,10 +46,10 @@ public class DamerauLevenshtein {
         }
 
         // fill in the distance matrix
-        for (i in 1..first.length) {
+        for (i in 1..n) {
             var lastMatch = 0
 
-            for (j in 1..second.length) {
+            for (j in 1..m) {
                 val lastRowIndex = charsRowIndex.getValue(second[j - 1])
                 val previousMatch = lastMatch
                 val cost: Int
@@ -61,12 +63,13 @@ public class DamerauLevenshtein {
                 val substitution = distanceMatrix[i][j] + cost
                 val insertion = distanceMatrix[i + 1][j] + 1
                 val deletion = distanceMatrix[i][j + 1] + 1
-                val transposition = distanceMatrix[lastRowIndex][previousMatch] + (i - lastRowIndex - 1) + 1 + (j - previousMatch - 1)
+                val transposition =
+                    distanceMatrix[lastRowIndex][previousMatch] + (i - lastRowIndex - 1) + 1 + (j - previousMatch - 1)
                 distanceMatrix[i + 1][j + 1] = minOf(substitution, insertion, deletion, transposition)
             }
             charsRowIndex[first[i - 1]] = i
         }
 
-        return distanceMatrix[first.length + 1][second.length + 1]
+        return distanceMatrix[n + 1][m + 1]
     }
 }

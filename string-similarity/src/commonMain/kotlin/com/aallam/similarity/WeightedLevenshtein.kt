@@ -4,10 +4,11 @@ import kotlin.math.min
 
 /**
  * Implementation of Levenshtein that allows to define different weights for different character substitutions.
- *
- * @param weights the strategy to determine character operations weights.
  */
 public class WeightedLevenshtein(
+    /**
+     * The strategy to determine character operations weights.
+     */
     private val weights: OperationsWeights
 ) {
 
@@ -95,6 +96,4 @@ public interface OperationsWeights {
      * @param char the character being inserted.
      */
     public fun insertion(char: Char): Double = 1.0
-
-    public companion object
 }
