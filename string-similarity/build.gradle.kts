@@ -60,6 +60,9 @@ kotlin {
     }
 
     sourceSets {
+        all {
+            languageSettings.optIn("kotlin.ExperimentalStdlibApi")
+        }
         val commonTest by getting {
             dependencies {
                 implementation(libs.kotlin.test.common)
