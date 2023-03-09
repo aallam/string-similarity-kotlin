@@ -22,8 +22,6 @@ public class QGram(private val k: Int = 3) {
      *
      * @param first the first string to compare.
      * @param second the second string to compare.
-     * @return The computed Q-gram distance.
-     * @throws NullPointerException if s1 or s2 is null.
      */
     public fun distance(first: String, second: String): Int {
         if (first == second) return 0
