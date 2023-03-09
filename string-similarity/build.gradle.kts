@@ -5,6 +5,7 @@ plugins {
     id("com.vanniktech.maven.publish")
     id("binary-compatibility-validator")
     id("com.diffplug.spotless")
+    id("org.jetbrains.dokka")
 }
 
 kotlin {
@@ -24,25 +25,45 @@ kotlin {
         browser()
     }
 
+    // Tier 1
+    linuxX64()
+
+    // Tier 2
+    linuxArm64()
+
+    // Tier 3
+    androidNativeArm32()
+    androidNativeArm64()
+    androidNativeX86()
+    androidNativeX64()
+    mingwX64()
+
+    // Apple macOS hosts only
     if (HostManager.hostIsMac) {
+        // Tier 1
         macosX64()
         macosArm64()
-        ios()
-        tvos()
-        watchos()
-    }
+        iosSimulatorArm64()
+        iosX64()
 
-    if (HostManager.hostIsMingw || HostManager.hostIsMac) {
-        mingwX64 {
-            binaries.findTest(DEBUG)?.linkerOpts = mutableListOf("-Wl,--subsystem,windows")
-        }
-    }
+        // Tier 2
+        watchosSimulatorArm64()
+        watchosX64()
+        watchosArm32()
+        watchosArm64()
+        tvosSimulatorArm64()
+        tvosX64()
+        tvosArm64()
+        iosArm64()
 
-    if (HostManager.hostIsLinux || HostManager.hostIsMac) {
-        linuxX64()
+        // Tier 3
+        watchosDeviceArm64()
     }
 
     sourceSets {
+        all {
+            languageSettings.optIn("kotlin.ExperimentalStdlibApi")
+        }
         val commonTest by getting {
             dependencies {
                 implementation(libs.kotlin.test.common)
