@@ -1,7 +1,5 @@
 # String Similarity for Kotlin
 
-> Kotlin port of [java-string-similarity](https://github.com/tdebatty/java-string-similarity)
-
 ## Algorithms
 
 The following is the list of implemented algorithms:
@@ -20,3 +18,7 @@ The following is the list of implemented algorithms:
 * [Jaccard index](docs/JaccardIndex.md)
 * [Sorensen-Dice coefficient](docs/SorensenDiceCoefficient.md)
 * [Ratcliff-Obershelp](docs/RatcliffObershelp.md)
+
+## Prior-Art
+
+The library is a Kotlin port of [java-string-similarity](https://github.com/tdebatty/java-string-similarity).

@@ -38,6 +38,6 @@ public class SorensenDice(public val k: Int = 3) {
      * @param second The second string to compare.
      */
     public fun distance(first: String, second: String): Double {
-        return 1 - similarity(first, second)
+        return 1.0 - similarity(first, second)
     }
 }
