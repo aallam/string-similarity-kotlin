@@ -1,6 +1,6 @@
 # String Similarity for Kotlin
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.aallam.similarity/string-similarity-kotlin?color=blue&label=Download)](https://search.maven.org/artifact/com.aallam.similarity/string-similarity-kotlin)
+[![Maven Central](https://img.shields.io/maven-central/v/com.aallam.similarity/string-similarity-kotlin?color=blue&label=Download)](https://central.sonatype.com/namespace/com.aallam.similarity)
 [![License](https://img.shields.io/github/license/aallam/string-similarity-kotlin?color=yellow)](LICENSE)
 [![Documentation](https://img.shields.io/badge/docs-dokka-a97bff)](https://mouaad.aallam.com/string-similarity-kotlin/)
 
